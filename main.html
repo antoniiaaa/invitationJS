@@ -1,40 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invitation</title>
+    <style>
+        body {
+            background-color: pink;
+            transition: background-color 0.6s ease;
+        }
+
+        div {
+            transition: background-color 0.6s ease;
+        }
+
+        .dark-mode {
+            background-color: lightblue;
+            color: white;
+        }
+    </style>
 </head>
+
 <body>
     <script>
         function agree() {
             window.location.href = 'closing.html';
         }
-        function disagree(){
+
+        function disagree() {
             window.location.href = 'no.html';
         }
 
-        //MAIN
+        // MAIN
         var opening = document.createElement("div");
         opening.id = "isi";
 
+        // Left Image Container
         var leftImageContainer = document.createElement("div");
-        leftImageContainer.style.position = 'absolute';
-        leftImageContainer.style.top = '50%';
-        leftImageContainer.style.left = '10%';
+        leftImageContainer.style.position = 'relative'; // Set to relative
+        leftImageContainer.style.display = 'inline-block'; // Ensure it takes the size of its contents
+        leftImageContainer.style.overflow = 'hidden'; // Ensure overflow doesn't affect layout
+        leftImageContainer.style.width = '100px'; // Set width to the desired size
+        leftImageContainer.style.height = '100px'; // Set height to the desired size
+        leftImageContainer.style.marginRight = '20px'; // Add right margin
+
+        // Left Image
         var leftImage = document.createElement("img");
         leftImage.src = "bbdecor.webp";
-        leftImage.style.width = '100px';
+        leftImage.style.width = '100%'; // Set to 100% width of the container
+        leftImage.style.height = '100%'; // Set to 100% height of the container
+        leftImage.style.position = 'absolute'; // Set to absolute
+        leftImage.style.top = '0'; // Align to the top
+        leftImage.style.left = '0'; // Align to the left
         leftImageContainer.appendChild(leftImage);
+        var leftButton = document.createElement("button");
+        leftButton.textContent = "Disagree";
+        leftButton.style.width = '80px';
+        leftButton.style.height = '30px';
+        leftButton.style.backgroundColor = 'white';
+        leftButton.style.color = 'pink';
+        leftButton.style.border = 'none';
+        leftButton.style.cursor = 'pointer';
+        leftButton.style.position = 'absolute';
+        leftButton.style.bottom = '30%';
+        leftButton.style.left = '50%';
+        leftButton.style.transform = 'translateX(-50%)';
+        leftButton.addEventListener("click", disagree);
 
+        // RIGHT
         var rightImageContainer = document.createElement("div");
-        rightImageContainer.style.position = 'absolute';
-        rightImageContainer.style.top = '50%';
-        rightImageContainer.style.right = '10%';
+        rightImageContainer.style.position = 'relative'; // Set to relative
+        rightImageContainer.style.display = 'inline-block'; // Ensure it takes the size of its contents
+        rightImageContainer.style.overflow = 'hidden'; // Ensure overflow doesn't affect layout
+        rightImageContainer.style.width = '100px'; // Set width to the desired size
+        rightImageContainer.style.height = '100px'; // Set height to the desired size
+        rightImageContainer.style.marginLeft = '194px'; // Add left margin
+
         var rightImage = document.createElement("img");
         rightImage.src = "bbdecor.webp";
-        rightImage.style.width = '100px';
+        rightImage.style.width = '100%'; // Set to 100% width of the container
+        rightImage.style.height = '100%'; // Set to 100% height of the container
+        rightImage.style.position = 'absolute'; // Set to absolute
+        rightImage.style.top = '0'; // Align to the top
+        rightImage.style.left = '0'; // Align to the left
         rightImageContainer.appendChild(rightImage);
+        var rightButton = document.createElement("button");
+        rightButton.textContent = "Agree";
+        rightButton.style.width = '80px';
+        rightButton.style.height = '30px';
+        rightButton.style.backgroundColor = 'white';
+        rightButton.style.color = 'pink';
+        rightButton.style.border = 'none';
+        rightButton.style.cursor = 'pointer';
+        rightButton.style.position = 'absolute';
+        rightButton.style.bottom = '30%';
+        rightButton.style.left = '50%';
+        rightButton.style.transform = 'translateX(-50%)';
+        rightButton.addEventListener("click", agree);
 
         var title = document.createElement("h1");
         title.textContent = "INVITATION TO SQUIDWARDS GRAND OPENING";
@@ -43,20 +106,28 @@
         var info = document.createElement("p");
         info.textContent = "@Bikini Bottom XXX No. 321";
         var date = document.createElement("p");
-        date.textContent = "3rd of January 2024";
-
+        date.textContent = "30th of January 2024";
 
         opening.appendChild(title);
         opening.appendChild(subtitle);
         opening.appendChild(info);
         opening.appendChild(date);
-        document.body.appendChild(leftImageContainer);
         document.body.appendChild(opening);
+        document.body.appendChild(leftImageContainer);
+        leftImageContainer.appendChild(leftButton);
         document.body.appendChild(rightImageContainer);
+        rightImageContainer.appendChild(rightButton);
 
-        //MAIN-STYLE
+        var toggleButton = document.createElement("button");
+        toggleButton.id = "dmb";
+        toggleButton.textContent = "🌙";
+        toggleButton.onclick = toggleDarkMode;
+        opening.appendChild(toggleButton);
+
+        // MAIN-STYLE
+        opening.style.marginBottom = '60px';
         title.style.color = 'white';
-        opening.style.backgroundColor = 'gray';
+        opening.style.backgroundColor = 'pink';
         title.style.textAlign = 'center';
         subtitle.style.color = 'whitesmoke';
         subtitle.style.textAlign = 'center';
@@ -64,6 +135,37 @@
         info.style.textAlign = 'center';
         date.style.color = 'whitesmoke';
         date.style.textAlign = 'center';
+
+        toggleButton.style.position = 'absolute';
+        toggleButton.style.top = '50%';
+        toggleButton.style.left = '50%';
+        toggleButton.style.transform = 'translate(-50%, -50%)';
+
+        // Retrieve dark mode state from localStorage
+        var isDarkMode = localStorage.getItem('darkMode') === 'true';
+        setDarkMode(isDarkMode);
+
+        function toggleDarkMode() {
+            var currentMode = document.body.classList.contains("dark-mode");
+            setDarkMode(!currentMode);
+        }
+
+        function setDarkMode(isDark) {
+            document.body.classList.toggle("dark-mode", isDark);
+            var Icon = document.getElementById("dmb");
+
+            if (isDark) {
+                Icon.innerHTML = '☀';
+                opening.style.backgroundColor = 'lightblue';
+            } else {
+                Icon.innerHTML = '🌙';
+                opening.style.backgroundColor = 'pink';
+            }
+
+            // Save dark mode state to localStorage
+            localStorage.setItem('darkMode', isDark);
+        }
     </script>
 </body>
+
 </html>

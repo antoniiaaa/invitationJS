@@ -1,11 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rejection</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .random-word {
+            position: absolute;
+            font-size: 24px;
+            white-space: nowrap;
+            animation: moveWord 2s linear infinite;
+        }
+
+        @keyframes moveWord {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(calc(100vw - 100%));
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <h1>oh gitu</h1>
+    <script>
+        const word = "oh gitu";
+        function createRandomWord() {
+            const wordElement = document.createElement('div');
+            wordElement.classList.add('random-word');
+            wordElement.textContent = word;
+
+            document.body.appendChild(wordElement);
+            setTimeout(() => {
+                wordElement.remove();
+            }, 2000); 
+        }
+
+        function startWordAnimation() {
+            setInterval(() => {
+                createRandomWord();
+            }, 1000);
+        }
+        startWordAnimation();
+    </script>
 </body>
+
 </html>
