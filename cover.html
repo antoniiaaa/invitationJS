@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cover</title>
+    <style>
+        div {
+            transition: background-color 0.6s ease;
+        }
+
+        .dark-mode {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <script>
+        function redirectToAnotherPage() {
+            window.location.href = 'main.html';
+        }
+
+        // COVER
+        var coverContainer = document.createElement("div");
+        coverContainer.id = "cover-container";
+        coverContainer.style.position = 'relative';
+        
+        var coverimage = document.createElement("img");
+        coverimage.src = "Krusty_krab.png";
+
+        var title_container = document.createElement("div");
+        title_container.style.position = 'absolute';
+        title_container.style.top = '50%';
+        title_container.style.left = '50%';
+        title_container.style.transform = 'translate(-50%, -50%)';
+        var firsttitle = document.createElement("h1");
+        firsttitle.textContent = "KRUSTY KRABS GRAND OPENING";
+
+        // COVER-STYLE
+        coverimage.style.width = '400px';
+        coverimage.style.height = '400px';
+        coverContainer.style.width = '430px';
+        coverContainer.style.height = '558px';
+        coverContainer.style.display = 'flex';
+        coverContainer.style.flexDirection = 'column'; // Change to column to stack children vertically
+        coverContainer.style.alignItems = 'center';
+        coverContainer.style.justifyContent = 'center';
+        coverContainer.style.backgroundColor = 'whitesmoke';
+        firsttitle.style.color = 'whitesmoke';
+        firsttitle.style.textAlign = 'center';
+
+        title_container.appendChild(firsttitle);
+        coverContainer.appendChild(coverimage);
+        coverContainer.appendChild(title_container);
+        document.body.appendChild(coverContainer);
+
+        // BUTTON
+        var redirectButton = document.createElement("div");
+        redirectButton.textContent = "Click Me For More Info";
+        redirectButton.style.width = '80%';
+        redirectButton.style.height = '50px';
+        redirectButton.style.backgroundColor = 'white';
+        redirectButton.style.color = 'gray';
+        redirectButton.style.textAlign = 'center';
+        redirectButton.style.lineHeight = '50px';
+        redirectButton.style.cursor = 'pointer';
+        redirectButton.addEventListener("click", redirectToAnotherPage);
+
+        redirectButton.style.borderRadius = '7%';
+        coverContainer.appendChild(redirectButton);
+
+        // TOGGLE BUTTON
+        var toggleButton = document.createElement("button");
+        toggleButton.id = "dmb";
+        toggleButton.textContent = "🌙";
+        toggleButton.onclick = toggleDarkMode;
+        coverContainer.appendChild(toggleButton);
+
+        // Set initial styles on page load
+        function setStyle() {
+            var container = document.getElementById('cover-container');
+            var redirectButton = document.querySelector('#cover-container div');
+
+            container.style.width = '100%';
+            container.style.height = 'auto';
+            coverContainer.style.display = 'flex';
+            coverContainer.style.flexDirection = 'column';
+            coverContainer.style.alignItems = 'center';
+            coverContainer.style.justifyContent = 'center';
+            coverContainer.style.backgroundColor = 'gray';
+            redirectButton.style.width = '80%';
+        }
+
+        // Add event listener for window resize
+        window.addEventListener('resize', function () {
+            setStyle();
+        });
+
+        function toggleDarkMode() {
+            coverContainer.classList.toggle("dark-mode");
+
+            var Icon = document.getElementById("dmb");
+
+            if (coverContainer.classList.contains("dark-mode")) {
+                Icon.innerHTML = '☀';
+                coverContainer.style.backgroundColor = 'whitesmoke';
+                redirectButton.style.backgroundColor = 'whitesmoke';
+                redirectButton.style.color = 'gray';
+            } else {
+                Icon.innerHTML = '🌙';
+                coverContainer.style.backgroundColor = 'gray';
+                redirectButton.style.backgroundColor = 'gray';
+                redirectButton.style.color = 'white';
+            }
+        }
+    </script>
+</body>
+</html>

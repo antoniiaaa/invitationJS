@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitation</title>
+</head>
+<body>
+    <script>
+        function agree() {
+            window.location.href = 'closing.html';
+        }
+        function disagree(){
+            window.location.href = 'no.html';
+        }
+
+        //MAIN
+        var opening = document.createElement("div");
+        opening.id = "isi";
+
+        var leftImageContainer = document.createElement("div");
+        leftImageContainer.style.position = 'absolute';
+        leftImageContainer.style.top = '50%';
+        leftImageContainer.style.left = '10%';
+        var leftImage = document.createElement("img");
+        leftImage.src = "bbdecor.webp";
+        leftImage.style.width = '100px';
+        leftImageContainer.appendChild(leftImage);
+
+        var rightImageContainer = document.createElement("div");
+        rightImageContainer.style.position = 'absolute';
+        rightImageContainer.style.top = '50%';
+        rightImageContainer.style.right = '10%';
+        var rightImage = document.createElement("img");
+        rightImage.src = "bbdecor.webp";
+        rightImage.style.width = '100px';
+        rightImageContainer.appendChild(rightImage);
+
+        var title = document.createElement("h1");
+        title.textContent = "INVITATION TO SQUIDWARDS GRAND OPENING";
+        var subtitle = document.createElement("h2");
+        subtitle.textContent = "(krusty krabs)";
+        var info = document.createElement("p");
+        info.textContent = "@Bikini Bottom XXX No. 321";
+        var date = document.createElement("p");
+        date.textContent = "3rd of January 2024";
+
+
+        opening.appendChild(title);
+        opening.appendChild(subtitle);
+        opening.appendChild(info);
+        opening.appendChild(date);
+        document.body.appendChild(leftImageContainer);
+        document.body.appendChild(opening);
+        document.body.appendChild(rightImageContainer);
+
+        //MAIN-STYLE
+        title.style.color = 'white';
+        opening.style.backgroundColor = 'gray';
+        title.style.textAlign = 'center';
+        subtitle.style.color = 'whitesmoke';
+        subtitle.style.textAlign = 'center';
+        info.style.color = 'whitesmoke';
+        info.style.textAlign = 'center';
+        date.style.color = 'whitesmoke';
+        date.style.textAlign = 'center';
+    </script>
+</body>
+</html>
