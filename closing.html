@@ -5,38 +5,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accepting the Invitation</title>
+    <style>
+        h1{
+            text-align: center;
+        }
+        h2{
+            text-align: center;
+        }
+        * {
+            transition: background-color 0.6s ease;
+        }
+        .dark-mode {
+            background-color: gray;
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
-    <h1 id="countdown"></h1>
+    <h1>ty udh nerima</h1>
+    <h2 id="countdown"></h2>
 
     <script>
-        // Set the target date (YYYY-MM-DD format)
+        var coverContainer = document.createElement("div");
+        coverContainer.id = "cover-container";
+        coverContainer.style.position = 'relative';
+        coverContainer.style.width = '430px';
+        coverContainer.style.height = '100vh';
+        coverContainer.style.display = 'flex';
+        coverContainer.style.flexDirection = 'column'; // Change to column to stack children vertically
+        coverContainer.style.alignItems = 'center';
+        coverContainer.style.justifyContent = 'center';
+        
+        document.body.appendChild(coverContainer);
         const targetDate = new Date('2024-01-30').getTime();
-
-        // Update the countdown every second
         const countdownInterval = setInterval(updateCountdown, 1000);
 
-        function updateCountdown() {
-            // Get the current date and time
-            const currentDate = new Date().getTime();
+        var toggleButton = document.createElement("button");
+        toggleButton.id = "dmb";
+        toggleButton.textContent = "🌙";
+        toggleButton.onclick = toggleDarkMode;
+        coverContainer.appendChild(toggleButton);
 
-            // Calculate the time remaining
+        toggleButton.style.position = 'absolute';
+        toggleButton.style.top = '50%';
+        toggleButton.style.left = '50%';
+        toggleButton.style.transform = 'translate(-50%, -50%)';
+
+        // Retrieve dark mode state from localStorage
+        var isDarkMode = localStorage.getItem('darkMode') === 'true';
+        setDarkMode(isDarkMode);
+
+        function toggleDarkMode() {
+            var currentMode = document.body.classList.contains("dark-mode");
+            setDarkMode(!currentMode);
+        }
+
+        function setDarkMode(isDark) {
+            document.body.classList.toggle("dark-mode", isDark);
+            var Icon = document.getElementById("dmb");
+
+            if (isDark) {
+                Icon.innerHTML = '☀';
+                // coverContainer.style.backgroundColor = 'whitesmoke';
+                body.style.backgroundColor = 'whitesmoke';
+            } else {
+                Icon.innerHTML = '🌙';
+                // coverContainer.style.backgroundColor = 'gray';
+                body.style.backgroundColor = 'gray';
+            }
+
+            // Save dark mode state to localStorage
+            localStorage.setItem('darkMode', isDark);
+        }
+
+        function updateCountdown() {
+            const currentDate = new Date().getTime();
             const timeRemaining = targetDate - currentDate;
 
             if (timeRemaining > 0) {
-                // Calculate days, hours, minutes, and seconds
                 const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
-                // Display the countdown
                 document.getElementById('countdown').innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
             } else {
-                // Display a message when the countdown is over
                 document.getElementById('countdown').innerHTML = 'Countdown Over!';
-                // Stop the interval
                 clearInterval(countdownInterval);
             }
         }

@@ -13,10 +13,19 @@
             height: 100vh;
             margin: 0;
             overflow: hidden;
+            /* background-color: gray; */
+        }
+        * {
+            transition: background-color 0.6s ease;
         }
 
+        .dark-mode {
+            background-color: gray;
+            color: white;
+        }
         .random-word {
             position: absolute;
+            top: 25%;
             font-size: 24px;
             white-space: nowrap;
             animation: moveWord 2s linear infinite;
@@ -36,6 +45,22 @@
 
 <body>
     <script>
+        var coverContainer = document.createElement("div");
+        coverContainer.id = "cover-container";
+        coverContainer.style.position = 'relative';
+        document.body.appendChild(coverContainer);
+
+        var toggleButton = document.createElement("button");
+        toggleButton.id = "dmb";
+        toggleButton.textContent = "🌙";
+        toggleButton.onclick = toggleDarkMode;
+        coverContainer.appendChild(toggleButton);
+
+        toggleButton.style.position = 'absolute';
+        toggleButton.style.top = '50%';
+        toggleButton.style.left = '50%';
+        toggleButton.style.transform = 'translate(-50%, -50%)';
+
         const word = "oh gitu";
         function createRandomWord() {
             const wordElement = document.createElement('div');
@@ -54,6 +79,32 @@
             }, 1000);
         }
         startWordAnimation();
+        
+
+        // Retrieve dark mode state from localStorage
+        var isDarkMode = localStorage.getItem('darkMode') === 'true';
+        setDarkMode(isDarkMode);
+
+        function toggleDarkMode() {
+            var currentMode = document.body.classList.contains("dark-mode");
+            setDarkMode(!currentMode);
+        }
+
+        function setDarkMode(isDark) {
+            document.body.classList.toggle("dark-mode", isDark);
+            var Icon = document.getElementById("dmb");
+
+            if (isDark) {
+                Icon.innerHTML = '☀';
+                opening.style.backgroundColor = 'lightblue';
+            } else {
+                Icon.innerHTML = '🌙';
+                opening.style.backgroundColor = 'pink';
+            }
+
+            // Save dark mode state to localStorage
+            localStorage.setItem('darkMode', isDark);
+        }
     </script>
 </body>
 

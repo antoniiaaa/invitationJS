@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cover</title>
     <style>
-        div {
+        body {
+            height: 100vh;
+        }
+        * {
             transition: background-color 0.6s ease;
         }
 
@@ -42,7 +45,7 @@
         coverimage.style.width = '400px';
         coverimage.style.height = '400px';
         coverContainer.style.width = '430px';
-        coverContainer.style.height = '558px';
+        coverContainer.style.height = '100vh';
         coverContainer.style.display = 'flex';
         coverContainer.style.flexDirection = 'column'; // Change to column to stack children vertically
         coverContainer.style.alignItems = 'center';
@@ -84,7 +87,7 @@
             var redirectButton = document.querySelector('#cover-container div');
 
             container.style.width = '100%';
-            container.style.height = 'auto';
+            container.style.height = '100vh';
             coverContainer.style.display = 'flex';
             coverContainer.style.flexDirection = 'column';
             coverContainer.style.alignItems = 'center';
@@ -98,7 +101,15 @@
             setStyle();
         });
 
+        var isDarkMode = localStorage.getItem('darkMode') === 'true';
+        setDarkMode(isDarkMode);
+
         function toggleDarkMode() {
+            var currentMode = document.body.classList.contains("dark-mode");
+            setDarkMode(!currentMode);
+        }
+
+        function setDarkMode() {
             coverContainer.classList.toggle("dark-mode");
 
             var Icon = document.getElementById("dmb");
@@ -114,7 +125,9 @@
                 redirectButton.style.backgroundColor = 'gray';
                 redirectButton.style.color = 'white';
             }
+            localStorage.setItem('darkMode', isDark);
         }
+        
     </script>
 </body>
 </html>
